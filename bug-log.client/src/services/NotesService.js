@@ -38,6 +38,19 @@ class NotesService {
       logger.error('Problem in NotesService Delete Note', err)
     }
   }
+
+  async editNote(id, data) {
+    try {
+      let res = null
+      res = await api.put('api/notes/' + id, data)
+
+      logger.log(res.data)
+      // AppState.Notes = res.data
+      logger.log('Edit Notes', res.data)
+    } catch (err) {
+      logger.error('Problem in NotesService Edit Note', err)
+    }
+  }
 }
 
 export const notesService = new NotesService()
