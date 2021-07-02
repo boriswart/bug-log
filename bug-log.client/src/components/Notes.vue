@@ -47,7 +47,8 @@ export default {
     notesService.getNotes(route.params.id)
     const state = reactive({
       newNote: { bug: {}, body: '' },
-      notes: computed(() => AppState.notes)
+      notes: computed(() => AppState.notes),
+      activeNoteEdit: ''
     })
     return {
       state,

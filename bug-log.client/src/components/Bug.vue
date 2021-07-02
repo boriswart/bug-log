@@ -71,6 +71,11 @@ export default {
         state.title = ''
         state.name = ''
       },
+      async editNote() {
+        state.title = AppState.currentNote.name
+        state.name = AppState.currentNote.description
+        // notesService.editNote(AppState.currentNote.title, AppState.currentNote.description, route.params.id)
+      },
       bugs: computed(() => AppState.bugs),
       Currentbug: computed(() => AppState.activeBug),
       async deleteBug() {

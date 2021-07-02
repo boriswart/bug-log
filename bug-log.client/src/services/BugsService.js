@@ -37,7 +37,7 @@ class BugsService {
     try {
       await api.delete('/api/bugs/' + id)
     } catch (err) {
-      logger.error('Problem in BugsService Delete Bugs', err)
+      logger.error('Problem in BugsService Delete Bug', err)
     }
   }
 
@@ -45,13 +45,12 @@ class BugsService {
     try {
       let res = null
       res = await api.post('/api/bugs/', data)
-
       logger.log(res.data)
       AppState.activeBug = res.data
       router.push({ name: 'bug-details', params: { id: res.data.id } })
       // logger.log('Updata Bug', res.data)
     } catch (err) {
-      logger.error('Problem in BugsService Create Bugss', err)
+      logger.error('Problem in BugsService Create Bug', err)
     }
   }
 
@@ -64,7 +63,7 @@ class BugsService {
       // AppState.bugs = res.data
       logger.log('Delete Bugss', res.data)
     } catch (err) {
-      logger.error('Problem in BugsService Delete Bugss', err)
+      logger.error('Problem in BugsService Update Bug', err)
     }
   }
 }
