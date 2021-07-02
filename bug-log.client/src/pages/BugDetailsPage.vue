@@ -25,7 +25,7 @@
                   <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                       <div class="col-12">
-                        <img :src="activeBug.creatorId.picture" class="rounded-pill py-2" alt="nogetty">
+                        <img :src="activeBug.creator.picture" class="rounded-pill py-2" alt="nogetty">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
