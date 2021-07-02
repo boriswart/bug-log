@@ -79,7 +79,7 @@
                       Report
                     </button>
                   </form>
-                  <Notes class="col-md-6 my-5 border" />
+                  <Notes class="col my-3 border" />
                 </div>
               </div>
             </div>
