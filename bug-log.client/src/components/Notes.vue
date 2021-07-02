@@ -1,21 +1,32 @@
 <template>
   <div v-if="state.notes">
     <div class="col-12 d-flex space-between border" v-for="note in state.notes" :key="note.id" note:note>
-      <div class="col-4 d-flex space-between">
-        <img
-          class="rounded-pill"
-          style="height: 30px"
-          :src="note.creator.picture"
-          alt="nogetty"
-        />
-        {{ note.creator.email }}
-      </div>
-      <div class="col-12 d-flex space-between ">
-        {{ note.body }}
-        <div class="col-2">
-          <span>
-            <i class="fa fa-trash" @click="deleteNote(note)" aria-hidden="true"></i>
+      <div class="col d-flex flex-wrap space-between">
+        <span>
+          <img
+            class="rounded-pill"
+            style="height: 30px"
+            :src="note.creator.picture"
+            alt="nogetty"
+          />
+          <p>{{ note.creator.email }}</p>
+        </span>
+        <div class="col-12 d-flex space-between ">
+          <span v-if="note.creator.id === state.user.id">
+            <i class="fa fa-edit text-primary mx-1" @click="editNote(note)" aria-hidden="true"></i>
           </span>
+          {{ note.body }}
+          <div class="col-2">
+            <span v-if="note.creator.id === state.user.id">
+              <i class="
+                  fa
+                  fa-trash
+                  text-danger"
+                 @click="deleteNote(note)"
+                 aria-hidden="true"
+              ></i>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +59,7 @@ export default {
     const state = reactive({
       newNote: { bug: {}, body: '' },
       notes: computed(() => AppState.notes),
-      activeNoteEdit: ''
+      user: computed(() => AppState.user)
     })
     return {
       state,
