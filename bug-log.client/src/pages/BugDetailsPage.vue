@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <button
-          class="btn btn-danger"
-          @click="deleteBug()"
+        <button v-if="activeBug.creatorId === state.account._id"
+                class="btn btn-danger"
+                @click="deleteBug()"
         >
           Del (close it)
         </button>
@@ -24,7 +24,7 @@
                 >
                   <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
-                      <div class="col-12">
+                      <div class="col-12 mx-3">
                         <img :src="activeBug.creator.picture" class="rounded-pill py-2" alt="nogetty">
                       </div>
                       <div class="col-md-8">
@@ -117,7 +117,8 @@ export default {
     })
     const state = reactive({
       newNote: { bug: {}, body: '' },
-      notes: computed(() => AppState.notes)
+      notes: computed(() => AppState.notes),
+      account: computed(() => AppState.account)
     })
     return {
       state,
@@ -146,5 +147,8 @@ export default {
 }
 </script>
 <style scoped>
+img{
+  height: 55px
+}
 
 </style>

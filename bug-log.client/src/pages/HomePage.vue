@@ -34,10 +34,10 @@
         </div>
         <div class="row row-cols-12 border text-light bg-dark">
           <div class="col">
-            Title
+            Reported By
           </div>
           <div class="col">
-            Reported By
+            Title
           </div>
           <div class="col">
             Status
@@ -54,15 +54,16 @@
                 style="color: var(--dark)"
               >
               </div>
-              <router-link :to="{name: 'bug-details', params: { id: bug.id } } ">
-                <div class="col">
+              <div v-if="bug.creatorId" class="col">
+                <img :src="bug.creator.picture" />
+                {{ bug.creator.email }}
+              </div>
+              <div class="col">
+                <router-link :to="{name: 'bug-details', params: { id: bug.id } } ">
                   {{
                     bug.title
                   }}
-                </div>
-              </router-link>
-              <div v-if="bug.creatorId" class="col">
-                {{ bug.creatorId.name }}
+                </router-link>
               </div>
               <div v-if="bug.closed" class="col" style="color: var(--danger);">
                 <b>
@@ -132,4 +133,7 @@ export default {
   /* width: 20%;
   color:  #c05a5a;
 } */
+img{
+  height: 30px;
+}
 </style>

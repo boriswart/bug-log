@@ -10,14 +10,15 @@
             alt="nogetty"
           />
           <p>{{ note.creator.email }}</p>
+          <!-- <p>{{ state.account._id }}</p> -->
         </span>
         <div class="col-12 d-flex space-between ">
-          <span><!-- v-if="note.creator.id === state.user.id"> -->
+          <span v-if="note.creator.id === state.account._id">
             <i class="fa fa-edit text-primary mx-1" @click="editForm(note)" aria-hidden="true"></i>
           </span>
           {{ note.body }}
           <div class="col-1">
-            <span>  <!--  v-if="note.creator.id === state.user.id"> -->
+            <span v-if="note.creator.id === state.account._id">
               <i class="
                   fa
                   fa-trash
@@ -60,21 +61,12 @@
 <script>
 import { notesService } from '../services/NotesService'
 import Notification from '../utils/Notification'
-import { logger } from '../utils/Logger'
+// import { logger } from '../utils/Logger'
 import { reactive, computed } from 'vue'
 import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
 
 export default {
-  // props: { note: { type: Object, required: true } },
-  // export default {
-  // props: {
-  //   movie: { type: Object, required: true }
-  // },
-  // setup(props) {
-  //   return {
-  //     setActiveMovie() {
-  //       AppState.activeMovie = props.movie
   setup() {
     const route = useRoute()
     // onMounted(() => { notesService.getNotes() })
@@ -85,6 +77,7 @@ export default {
       newNote: { bug: {}, body: '' },
       notes: computed(() => AppState.notes),
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       activeBug: computed(() => AppState.activeBug),
       activeNoteEdit: ''
     })
