@@ -35,10 +35,8 @@ export class NotesController extends BaseController {
   async updateNote(req, res, next) {
     try {
       const id = req.params.id
-      if (req.userInfo.id === id) {
-        const note = await notesService.updateNote(id, req.body)
-        return res.send(note)
-      }
+      const note = await notesService.updateNote(id, req.body, req.userInfo.id)
+      return res.send(note)
     } catch (error) {
       next(error)
     }

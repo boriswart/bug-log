@@ -39,7 +39,7 @@
                   </div>
                   <div class="row">
                     <div class="col-12 d-flex justify-content-center p-3">
-                      <button type="submit" class="submit-edit mx-3 btn btn-primary" @click="editNote(note.id,state.newNote.body, activeBug.id)">
+                      <button type="submit" class="submit-edit mx-3 btn btn-primary" @click="editNote(note.id,state.newNote.body, state.activeBug.id)">
                         Submit
                       </button>
                       <button type="button" class="cancel-edit mx-3 btn btn-primary" @click="state.activeNoteEdit = ''">
@@ -60,6 +60,7 @@
 <script>
 import { notesService } from '../services/NotesService'
 import Notification from '../utils/Notification'
+import { logger } from '../utils/Logger'
 import { reactive, computed } from 'vue'
 import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
@@ -101,6 +102,7 @@ export default {
       async editNote(noteId, inData, bugId) {
         const data = { body: inData, bug: bugId }
         notesService.editNote(noteId, data)
+        // logger.log('bug', bugId, data)
       },
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes)
