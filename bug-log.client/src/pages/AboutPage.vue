@@ -5,8 +5,8 @@
     <p>It demonstrates my ability to code in Node.js Vue.js and the backend was </p>
     <p>created with Vue.js </p>
     <br>
-    <p> The web Application was deployed on Heroku.. </p>
-    <p> More later ....</p>
+    <p> The web Application was deployed on Heroku.. Authorization is provided by</p>
+    <p> Auth0  More later ....</p>
   </div>
 </template>
 
