@@ -25,9 +25,9 @@ class BugsService {
     try {
       let res = null
       res = await api.get('/api/bugs/' + id)
-      logger.log('suspect res Data', res.data)
+      // logger.log('suspect res Data', res.data)
       AppState.activeBug = res.data
-      logger.log('Check getBugsDetails', AppState.bugs)
+      // logger.log('Check getBugsDetails', AppState.bugs)
     } catch (err) {
       logger.error('Problem in BugsService getBugDetails', err)
     }

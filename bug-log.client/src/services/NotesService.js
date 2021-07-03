@@ -20,7 +20,7 @@ class NotesService {
       // logger.log('createNote', data)
       const res = await api.post('/api/notes', data)
       logger.log(res.data)
-      AppState.Notes.push(res.data)
+      AppState.notes.push(res.data)
     } catch (err) {
       logger.error('Problem in NotesService createNote', err)
     }

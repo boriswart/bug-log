@@ -9,8 +9,12 @@ class NotesService {
     return await dbContext.Notes.findByIdAndDelete({ _id: noteId }).populate('creator')
   }
 
-  async updateNote(id, noteData) {
-    const note = await dbContext.Notes.findByIdAndUpdate(id, noteData, { new: true, runValidators: true })
+  async updateNote(noteId, noteData, userId) {
+    let note = await this.getNoteById(noteId)
+    if (note.creatorId.toString() !== userId) {
+      throw new Error('Unable to update - not yours')
+    }
+    note = await dbContext.Notes.findByIdAndUpdate(noteId, noteData, { new: true, runValidators: true })
     // TODO research  populate and .execPopulate()
     await note.populate('creator').execPopulate()
     return note

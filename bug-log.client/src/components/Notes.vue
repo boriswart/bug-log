@@ -10,14 +10,15 @@
             alt="nogetty"
           />
           <p>{{ note.creator.email }}</p>
+          <!-- <p>{{ state.account._id }}</p> -->
         </span>
         <div class="col-12 d-flex space-between ">
-          <span><!-- v-if="note.creator.id === state.user.id"> -->
-            <i class="fa fa-edit text-primary mx-1" @click="state.activeNoteEdit = note.id" aria-hidden="true"></i>
+          <span v-if="note.creator.id === state.account._id">
+            <i class="fa fa-edit text-primary mx-1" @click="editForm(note)" aria-hidden="true"></i>
           </span>
           {{ note.body }}
           <div class="col-1">
-            <span>  <!--  v-if="note.creator.id === state.user.id"> -->
+            <span v-if="note.creator.id === state.account._id">
               <i class="
                   fa
                   fa-trash
@@ -39,7 +40,7 @@
                   </div>
                   <div class="row">
                     <div class="col-12 d-flex justify-content-center p-3">
-                      <button type="submit" class="submit-edit mx-3 btn btn-primary" @click="editNote(note)">
+                      <button type="submit" class="submit-edit mx-3 btn btn-primary" @click="editNote(note.id,state.newNote.body, state.activeBug.id)">
                         Submit
                       </button>
                       <button type="button" class="cancel-edit mx-3 btn btn-primary" @click="state.activeNoteEdit = ''">
@@ -60,20 +61,12 @@
 <script>
 import { notesService } from '../services/NotesService'
 import Notification from '../utils/Notification'
+// import { logger } from '../utils/Logger'
 import { reactive, computed } from 'vue'
 import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
 
 export default {
-  // props: { note: { type: Object, required: true } },
-  // export default {
-  // props: {
-  //   movie: { type: Object, required: true }
-  // },
-  // setup(props) {
-  //   return {
-  //     setActiveMovie() {
-  //       AppState.activeMovie = props.movie
   setup() {
     const route = useRoute()
     // onMounted(() => { notesService.getNotes() })
@@ -84,6 +77,8 @@ export default {
       newNote: { bug: {}, body: '' },
       notes: computed(() => AppState.notes),
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
+      activeBug: computed(() => AppState.activeBug),
       activeNoteEdit: ''
     })
     return {
@@ -93,8 +88,14 @@ export default {
           notesService.deleteNote(note.id)
         }
       },
-      async editNote(note) {
-        notesService.editNote(note.id)
+      editForm(note) {
+        state.activeNoteEdit = note.id
+        state.newNote.body = note.body
+      },
+      async editNote(noteId, inData, bugId) {
+        const data = { body: inData, bug: bugId }
+        notesService.editNote(noteId, data)
+        // logger.log('bug', bugId, data)
       },
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes)
